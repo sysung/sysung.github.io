@@ -39,55 +39,61 @@ const hoverTexts = [
       <h2 class="font-headline-md-mobile md:font-headline-md text-headline-md-mobile md:text-headline-md text-primary mb-8 border-b border-glass-border pb-4 font-light animate-fade-in" style="animation-delay: 0.3s">Work Experience</h2>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {sortedProjects.map((project, index) => {
-          const { title, description, tags, link, github } = project.data;
-          
-          const gradient = gradients[index % gradients.length];
-          const hoverBg = hoverBgs[index % hoverBgs.length];
-          const hoverText = hoverTexts[index % hoverTexts.length];
+        {sortedProjects.length > 0 ? (
+          sortedProjects.map((project, index) => {
+            const { title, description, tags, link, github } = project.data;
+            
+            const gradient = gradients[index % gradients.length];
+            const hoverBg = hoverBgs[index % hoverBgs.length];
+            const hoverText = hoverTexts[index % hoverTexts.length];
 
-          return (
-            <article class="bg-glass-surface backdrop-blur-md border border-glass-border rounded-xl p-card-padding glass-card-hover group relative overflow-hidden animate-fade-in" style={`animation-delay: ${0.4 + (index * 0.1)}s`}>
-              <div class={`absolute inset-0 bg-gradient-to-br ${gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}></div>
-              
-              <div class="relative z-10">
-                <h3 class={`font-headline-md-mobile text-headline-md-mobile text-text-primary mb-2 ${hoverText} transition-colors font-light`}>
-                  <a href={`/projects/${project.slug}/`} class="absolute inset-0 z-20"><span class="sr-only">{title}</span></a>
-                  {title}
-                </h3>
+            return (
+              <article class="bg-glass-surface backdrop-blur-md border border-glass-border rounded-xl p-card-padding glass-card-hover group relative overflow-hidden animate-fade-in" style={`animation-delay: ${0.4 + (index * 0.1)}s`}>
+                <div class={`absolute inset-0 bg-gradient-to-br ${gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}></div>
                 
-                <p class="font-body-sm text-body-sm text-text-secondary mb-6 font-light">{description}</p>
-                
-                <div class="flex flex-wrap gap-2 relative z-30">
-                  {tags.map((tag) => (
-                    <span class={`font-label-mono text-label-mono bg-[rgba(255,255,255,0.05)] text-text-muted px-3 py-1 rounded-full ${hoverBg} group-hover:text-white transition-all font-normal`}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                <div class="relative z-10">
+                  <h3 class={`font-headline-md-mobile text-headline-md-mobile text-text-primary mb-2 ${hoverText} transition-colors font-light`}>
+                    <a href={`/projects/${project.slug}/`} class="absolute inset-0 z-20"><span class="sr-only">{title}</span></a>
+                    {title}
+                  </h3>
+                  
+                  <p class="font-body-sm text-body-sm text-text-secondary mb-6 font-light">{description}</p>
+                  
+                  <div class="flex flex-wrap gap-2 relative z-30">
+                    {tags.map((tag) => (
+                      <span class={`font-label-mono text-label-mono bg-[rgba(255,255,255,0.05)] text-text-muted px-3 py-1 rounded-full ${hoverBg} group-hover:text-white transition-all font-normal`}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
 
-                <div class="flex gap-4 mt-6 relative z-30">
-                  {github && (
-                    <a href={github} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors" aria-label={`View ${title} on GitHub`}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                      </svg>
-                    </a>
-                  )}
-                  {link && (
-                    <a href={link} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors" aria-label={`Visit ${title} Live`}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                        <polyline points="15 3 21 3 21 9"></polyline>
-                        <line x1="10" y1="14" x2="21" y2="3"></line>
-                      </svg>
-                    </a>
-                  )}
+                  <div class="flex gap-4 mt-6 relative z-30">
+                    {github && (
+                      <a href={github} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors" aria-label={`View ${title} on GitHub`}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                      </a>
+                    )}
+                    {link && (
+                      <a href={link} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-white transition-colors" aria-label={`Visit ${title} Live`}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
-          );
-        })}
+              </article>
+            );
+          })
+        ) : (
+          <div class="col-span-full flex items-center justify-center py-24 animate-fade-in" style="animation-delay: 0.4s">
+            <span class="font-['Inter'] font-light uppercase tracking-widest text-white/20 text-body-base">Coming soon</span>
+          </div>
+        )}
       </div>
     </section>
 
